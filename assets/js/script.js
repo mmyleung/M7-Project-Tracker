@@ -1,12 +1,14 @@
+let today = moment();
+
 //set interval function to display time every second
 
 setInterval(function() {
 //save today's date and time into variable today
-let today = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+let todayDisplay = today.format("dddd, MMMM Do YYYY, h:mm:ss a");
 //target span to display time
 let timeDisplay = $("#timeDisplay");
 //display time and date into timeDisplay
-timeDisplay.text(today);
+timeDisplay.text(todayDisplay);
 }, 1000)
 
 //date picker in due date form
@@ -17,21 +19,26 @@ $( function() {
 //target the form input fields and store as variables
 var submitBtn = $("#submitBtn");
 var projectForm = $("#projectForm");
-var projectName = $("#projectNameInput").val();
-var projectType = $("#projectTypeSelect").val();
-var hourlyRate = $("#hourlyRateInput").val();
-var dueDate = $("#dueDateInput").val();
+
 var table = $("#formTable");
 var tableHeaderChildren = $("th");
 
 
 //target submit on project form
 projectForm.on("submit", function(event) {
-
   //prevent default on form
   event.preventDefault();
   //prevent propagation
   event.stopPropagation();
+
+  //variable to store data from form
+  var projectName = $("#projectNameInput").val();
+  var projectType = $("#projectTypeSelect").val();
+  var hourlyRate = $("#hourlyRateInput").val();
+  var dueDate = $("#dueDateInput").val();
+  var formattedDate = moment(dueDate).format("YYYY, MM, DD");
+  var daysUntilDate = moment(formattedDate).fromNow(true);
+  console.log(daysUntilDate);
   //add new table row
   let tableRow = $("<tr>");
   tableRow.appendTo($("#tableData"))
@@ -40,4 +47,12 @@ projectForm.on("submit", function(event) {
   let tableCell = $("<td>");
   tableCell.appendTo(tableRow);
  }
+
+  //work out days until due date
+console.log(projectName, projectType, hourlyRate, dueDate)
 })
+
+//store form data into array
+var dataArray = [];
+
+dataArray = [projectName, projectType, hourlyRate, dueDate, daysUntilDate]
