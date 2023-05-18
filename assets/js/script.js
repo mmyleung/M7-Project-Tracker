@@ -1,15 +1,5 @@
 let today = moment();
 
-//set interval function to display time every second
-
-setInterval(function() {
-//save today's date and time into variable today
-let todayDisplay = today.format("dddd, MMMM Do YYYY, h:mm:ss a");
-//target span to display time
-let timeDisplay = $("#timeDisplay");
-//display time and date into timeDisplay
-timeDisplay.text(todayDisplay);
-}, 1000)
 
 //date picker in due date form
 $( function() {
@@ -56,8 +46,25 @@ projectForm.on("submit", function(event) {
   tableCell.text(dataArray[i]);
 
  }
-
+ $('#addProjectModal').modal('toggle'); 
 });
 
+table.on("click", "td", function() {
+  console.log("click");
+  console.log(this);
+  if (this.innerHTML === "X") {
+    this.parentElement.remove();
+  }
+})
 
 
+//set interval function to display time every second
+
+setInterval(function() {
+  //save today's date and time into variable today
+  let todayDisplay = today.format("dddd, MMMM Do YYYY, h:mm:ss a");
+  //target span to display time
+  let timeDisplay = $("#timeDisplay");
+  //display time and date into timeDisplay
+  timeDisplay.text(todayDisplay);
+  }, 1000)
