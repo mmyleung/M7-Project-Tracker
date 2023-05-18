@@ -36,9 +36,16 @@ projectForm.on("submit", function(event) {
   var projectType = $("#projectTypeSelect").val();
   var hourlyRate = $("#hourlyRateInput").val();
   var dueDate = $("#dueDateInput").val();
-  var formattedDate = moment(dueDate).format("YYYY, MM, DD");
-  var daysUntilDate = moment(formattedDate).fromNow(true);
-  console.log(daysUntilDate);
+  var formattedDate = moment(dueDate);
+  var daysUntil = formattedDate.diff(today, 'days');
+  var totalReward = hourlyRate * 8 * daysUntil;
+  var deleteBtn = "X"
+
+  //empty array to store data
+  var dataArray = [];
+  dataArray = [projectName, projectType, hourlyRate, dueDate, daysUntil, totalReward, deleteBtn];
+
+
   //add new table row
   let tableRow = $("<tr>");
   tableRow.appendTo($("#tableData"))
@@ -46,13 +53,11 @@ projectForm.on("submit", function(event) {
  for (let i = 0; i < tableHeaderChildren.length; i++) {
   let tableCell = $("<td>");
   tableCell.appendTo(tableRow);
+  tableCell.text(dataArray[i]);
+
  }
 
-  //work out days until due date
-console.log(projectName, projectType, hourlyRate, dueDate)
-})
+});
 
-//store form data into array
-var dataArray = [];
 
-dataArray = [projectName, projectType, hourlyRate, dueDate, daysUntilDate]
+
