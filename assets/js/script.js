@@ -8,3 +8,7 @@ let timeDisplay = $("#timeDisplay");
 //display time and date into timeDisplay
 timeDisplay.text(today);
 }, 1000)
+
+$( function() {
+    $( "#dueDateInput" ).datepicker();
+  } );
